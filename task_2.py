@@ -9,37 +9,50 @@
 
 from abc import ABC, abstractmethod
 
-class My(ABC):
-    @abstractmethod                 #Реализуем абстрактрый метод
-    def get_square(self):
-        pass
-
-class Dress(My):
+class Dress(ABC):
     def __init__(self, width, height):
         self.width = width
         self.height = height
-    @property
+
+    @abstractmethod
     def get_square(self):
-        return str(f'Площадь общая ткани {self.width + self.width}')
+        pass
+
+    @property
+    def get_square_full(self):
+        return str(f'Площадь общая ткани {(2 * self.height + 0.3) + (self.width / 6.5 + 0.5)}')
 
 
-class Coat(Dress):                  # Класс обязательно должен иметь иплекацию? метода get_squary класса My
+class Coat(Dress):
     def get_square(self):
         return self.width / 6.5 + 0.5
+
     def __str__(self):
         return f'Площадь на пальто {self.get_square()}'
 
 
-class Jacket(Dress):                # Класс обязательно должен иметь иплекацию? метода get_squary класса My
+class Jacket(Dress):
     def get_square(self):
-        return 2 * self.height + 0.3
+        return self.height * 2 + 0.3
+
     def __str__(self):
         return f'Площадь на костюм {self.get_square()}'
+    pass
 
-d = Dress(10,20)
-print(d.get_square)
 
-jacket = Jacket(10, 20)
-coat = Coat(10, 20)
+class FullCost(Dress):
+    def get_square(self):
+        return (2 * self.height + 0.3) + (self.width / 6.5 + 0.5)
+
+    @property
+    def get_square_full(self):
+        return str(f'Площадь общая ткани {self.get_square()}')
+
+
+jacket = Jacket(70, 10)
+coat = Coat(70, 10)
+cost = FullCost(70, 10)
+
+print(cost.get_square_full)
 print(jacket)
 print(coat)
