@@ -7,32 +7,39 @@
 # Реализовать общий подсчет расхода ткани. Проверить на практике полученные на этом уроке знания: реализовать
 # абстрактные классы для основных классов проекта, проверить на практике работу декоратора @property.
 
+from abc import ABC, abstractmethod
 
-class Dress(object):
+class My(ABC):
+    @abstractmethod                 #Реализуем абстрактрый метод
+    def get_square(self):
+        pass
+
+class Dress(My):
     def __init__(self, width, height):
         self.width = width
         self.height = height
-
-    def get_square_c(self):
-        return self.width / 6.5 + 0.5
-
-    def get_square_j(self):
-        return 2 * self.height + 0.3
-
     @property
-    def get_sq_full(self):
-        return str(f'Площадь общая ткани {self.get_square_c() + self.get_square_j()}')
+    def get_square(self):
+        return str(f'Площадь общая ткани {self.width + self.width}')
 
-class Coat(Dress):
+
+class Coat(Dress):                  # Класс обязательно должен иметь иплекацию? метода get_squary класса My
+    def get_square(self):
+        return self.width / 6.5 + 0.5
     def __str__(self):
-        return f'Площадь на пальто {self.get_square_c()}'
+        return f'Площадь на пальто {self.get_square()}'
 
-class Jacket(Dress):
+
+class Jacket(Dress):                # Класс обязательно должен иметь иплекацию? метода get_squary класса My
+    def get_square(self):
+        return 2 * self.height + 0.3
     def __str__(self):
-        return f'Площадь на костюм {self.get_square_j()}'
+        return f'Площадь на костюм {self.get_square()}'
 
-d= Dress(10,20)
+d = Dress(10,20)
+print(d.get_square)
 
-print(d.get_sq_full)
-print(Jacket(10, 20))
-print(Coat(10, 20))
+jacket = Jacket(10, 20)
+coat = Coat(10, 20)
+print(jacket)
+print(coat)
